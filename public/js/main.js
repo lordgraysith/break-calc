@@ -8,6 +8,8 @@ $(function(){
 	, tzOffset
 	, setInputDate
 	, startDateChange
+	, paintSlider
+	, $slider
 	, thirtyFourHours = 34 * 60 * 60 * 1000;
 
 	findTheEnd = function(startDate){
@@ -54,6 +56,20 @@ $(function(){
 		duration = duration - minutes;
 		hours = duration / 60;
 		$duration.text(hours + ' hours ' + minutes + ' minutes');
+		//paintSlider();
+	};
+
+	paintSlider = function(){
+		var hour
+		, iter = 0;
+		$slider.html('');
+		for(hour = startDate.getHours(); iter < 45; iter++){
+			if(hour > 23){
+				hour = 0;
+			}
+			$slider.append('<div class="hour">'+hour+'</div>');
+			hour++;
+		}
 	};
 
 	//initialize vars
@@ -65,6 +81,7 @@ $(function(){
 	startInput = $startInput[0];
 	$endDisplay = $('#break-end');
 	$duration = $('#duration');
+	$slider = $('.slider');
 	//bind events
 	$startInput.on('change', startDateChange);
 	//start doing stuff
