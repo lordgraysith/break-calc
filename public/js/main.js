@@ -2,7 +2,7 @@ $(function(){
 	var startInput
 	, $startInput
 	, $duration
-	, endInput
+	, $endDisplay
 	, startDate
 	, findTheEnd
 	, tzOffset
@@ -46,7 +46,7 @@ $(function(){
 		, minutes;
 		startDate = new Date(startInput.valueAsNumber + (tzOffset * 60000));
 		endDate = findTheEnd(startDate);
-		setInputDate(endInput, endDate);
+		$endDisplay.text(endDate.toString());
 		duration = endDate - startDate;
 		//convert duration to minutes
 		duration = Math.round(duration / 60000);
@@ -58,10 +58,12 @@ $(function(){
 
 	//initialize vars
 	startDate = new Date();
+	startDate.setSeconds(0);
+	startDate.setMilliseconds(0);
 	tzOffset = startDate.getTimezoneOffset();
 	$startInput = $('#break-start');
 	startInput = $startInput[0];
-	endInput = $('#break-end')[0];
+	$endDisplay = $('#break-end');
 	$duration = $('#duration');
 	//bind events
 	$startInput.on('change', startDateChange);
